@@ -9,21 +9,19 @@ export default class Show extends Component {
     };
     
     componentDidUpdate() {
-        const props = this.props;
-        const state = this.state;
+        const { showId } = this.props;
 
-        if (props.showId === '' || props.showId === state.showId) return;
+        if (showId === this.state.showId) return;
 
         this.setState({
-            showId: props.showId
+            showId: showId,
+            data: null
         })
 
-        getShowInfo(props.showId)
-            .then((response) => {
-                this.setState({
-                    data: response
-                })
-            })
+        getShowInfo(showId)
+            .then((data) => {
+                this.setState({ data });
+            });
     }
 
     render() {
